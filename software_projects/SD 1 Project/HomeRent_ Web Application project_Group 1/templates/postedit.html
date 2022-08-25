@@ -1,0 +1,48 @@
+{% extends 'baseN.html' %}
+
+{% load static %}
+{% block content %}
+
+<section class="py-3">
+
+    <div class="container-fluid">
+
+        <div class="navbar">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link">
+                        <h4>Update Avertise Details</h4>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="/postadverlist" class="btn btn-primary">Back to Avertise List</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="jumbotron">
+
+            <form method="POST" action="">
+                {% csrf_token %}
+                <table>
+                    {{form.media}}
+                    {{form.as_p}}
+                </table>
+
+                <button class="btn btn-success" type="submit">Update</button>
+
+                <!-- {% for message in messages %}
+        <p>{{message}}</p>
+        {% endfor %} -->
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+{% endblock %}

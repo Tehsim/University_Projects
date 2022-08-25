@@ -1,0 +1,594 @@
+{% extends 'baseN.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<section class="hero-home">
+  <div class="swiper-container hero-slider">
+    <div class="swiper-wrapper dark-overlay">
+
+      <div class="swiper-slide"
+        style="background-image:url(https://d19m59y37dris4.cloudfront.net/directory/1-6-1/img/photo/photo-1519974719765-e6559eac2575.jpg)">
+      </div>
+
+
+    </div>
+  </div>
+
+
+  <div class="container py-6 py-md-7 z-index-20">
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="text-center text-lg-left">
+          <p class="subtitle letter-spacing-4 mb-2 text-secondary text-shadow">Save Your Valuable Time</p>
+          <h1 class="display-4 font-weight-bold text-shadow">Find and Rent Home Very Easily</h1>
+        </div>
+        <div style="border-radius: 3px !important;" class="search-bar mt-5 p-3 p-lg-1 pl-lg-4 pr-lg-4">
+
+          <div class="form-bg" style="margin-top: 15px;margin-bottom: 15px;">
+
+            <form method='GET' action="">
+              {% csrf_token %}
+
+              <div class="row">
+                <div class="col-lg-3 d-flex align-items-center form-group no-divider">
+                  <select id="id_division" class="selectpicker" name="division">
+                    <option selected disabled="true">Division </option>
+                    {% for dv in location.divisionList%}
+                    <option value="{{dv.division}}">{{dv.division}}</option>
+                    {% endfor %}
+                  </select>
+                  {% if msg != '' %}
+                  <span class="text-danger">*</span>
+                  {% endif %}
+                </div>
+
+                <div class="col-lg-3 d-flex align-items-center form-group no-divider">
+                  <select id="id_city" class="selectpicker" name="city">
+                    <option selected disabled="true">City </option>
+                    {% for dv in location.cityList%}
+                    <option value="{{dv.city}}">{{dv.city}}</option>
+                    {% endfor %}
+                  </select>
+                  {% if msg != '' %}
+                  <span class="text-danger">*</span>
+                  {% endif %}
+                </div>
+
+                <div class="col-lg-3 d-flex align-items-center form-group no-divider">
+                  <select id="id_locality" class="selectpicker" name="locality">
+                    <option selected disabled="true">Area/Locality </option>
+                    {% for dv in location.localityList%}
+                    <option value="{{dv.locality}}">{{dv.locality}}</option>
+                    {% endfor %}
+                  </select>
+                  {% if msg != '' %}
+                  <span class="text-danger">*</span>
+                  {% endif %}
+                </div>
+
+                <div class="col-lg-3">
+                  <!-- <button onclick="clearFilter($evant)" class="btn btn-danger h-100 rounded-xl">Clear</button> -->
+                  <input class="btn btn-primary btn-block rounded-xl h-100" type="submit" value="Search" />
+                </div>
+              </div>
+            </form>
+
+
+
+            <!-- {% if messages.length > 0 %}
+            {% for message in messages %}
+              {% if message.tags %}
+              <script>alert("{{ message }}")</script> 
+              {% endif %}
+            {% endfor %}
+
+            {% endif %} -->
+
+
+            <!-- {% if msg != '' %}
+            <script>alert("{{ msg }}")</script> 
+            <span class="text-danger">{{ msg }}</span>
+            {% endif %} -->
+
+
+
+            {% if query.division or query.city or query.locality %}
+            {% if results %}
+
+            {% for item in results %}
+            <ul
+              style="position:relative;text-decoration: none;text-align: left;border: 1px solid #ccc;background: aliceblue;border-radius: 3px;margin-top: 15px;">
+              <li><b>Title: </b>{{ item.ad_title }}</li>
+              <li><b>Details: </b>{{ item.ad_detail }}</li>
+              <li><b>Catagory: </b>{{ item.ad_catagory }}</li>
+              <!-- <li><b>Type: </b>{{ item.ad_type }}</li> -->
+              <li><b>Location: </b>{{ item.division }} - {{ item.city }} - {{ item.locality }}</li>
+              <li><b>Address: </b>{{ item.address }}</li>
+              <li><b>Monthly Rent: </b>{{ item.monthly_rent }}</li>
+              <li><b>Deposit Amount: </b>{{ item.deposit_tk }}</li>
+              <li><b>Available Status: </b>{{ item.available }}</li>
+
+              {% if user %}
+                <li><b>Mobile: </b>{{ item.contact_no }}</li>
+                <li><b>Email: </b>{{ item.email }}</li>
+              {% endif %}
+              <li style="position: absolute;
+              top: 0px;background: #eee;
+              right: 0px;
+              list-style: none;
+              height: 100%;
+              border-left: 1px solid #ccc;
+              width: 200px;">
+                <img itemprop="image" class="img-thumbnail" src="{{ item.img_1 }}" alt="Not image found!" />
+              </li>
+              <!-- <li>{{item.img_2}}</li>
+              <li>{{item.img_3}}</li> -->
+
+            </ul>
+            {% endfor %}
+
+            {% else %}
+            <p>No data found!</p>
+            {% endif %}
+            {% endif %}
+
+
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="py-6 bg-gray-100">
+  <div class="container">
+    <div class="text-center pb-lg-4">
+      <p class="subtitle text-secondary">You are exactly where you ought to be</p>
+      <h2 class="mb-5">We meet all your needs</h2>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 mb-3 mb-lg-0 text-center">
+        <div class="px-0 px-lg-3">
+          <div class="icon-rounded bg-primary-light mb-3">
+            <svg class="svg-icon text-primary w-2rem h-2rem">
+              <use xlink:href="#destination-map-1"> </use>
+            </svg>
+          </div>
+          <h3 class="h5">Find the perfect rental</h3>
+          <p class="text-muted"></p>
+        </div>
+      </div>
+      <div class="col-lg-4 mb-3 mb-lg-0 text-center">
+        <div class="px-0 px-lg-3">
+          <div class="icon-rounded bg-primary-light mb-3">
+            <svg class="svg-icon text-primary w-2rem h-2rem">
+              <use xlink:href="#pay-by-card-1"> </use>
+            </svg>
+          </div>
+          <h3 class="h5">Advertise your home for rent easily</h3>
+          <p class="text-muted"></p>
+        </div>
+      </div>
+      <div class="col-lg-4 mb-3 mb-lg-0 text-center">
+        <div class="px-0 px-lg-3">
+          <div class="icon-rounded bg-primary-light mb-3">
+            <svg class="svg-icon text-primary w-2rem h-2rem">
+              <use xlink:href="#heart-1"> </use>
+            </svg>
+          </div>
+          <h3 class="h5">Good experience and convenience</h3>
+          <p class="text-muted"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-6 bg-gray-100">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-md-8">
+        <p class="subtitle text-secondary">Hurry up, these are expiring soon. </p>
+        <h2>Last minute deals</h2>
+      </div>
+      <!-- <div class="col-md-4 d-lg-flex align-items-center justify-content-end"><a class="text-muted text-sm"
+          href="category.html">
+          See all deals<i class="fas fa-angle-double-right ml-2"></i></a></div> -->
+    </div>
+    <!-- Slider main container-->
+    <div class="swiper-container swiper-container-mx-negative swiper-init pt-3"
+      data-swiper="{&quot;slidesPerView&quot;:4,&quot;spaceBetween&quot;:20,&quot;loop&quot;:true,&quot;roundLengths&quot;:true,&quot;breakpoints&quot;:{&quot;1200&quot;:{&quot;slidesPerView&quot;:3},&quot;991&quot;:{&quot;slidesPerView&quot;:2},&quot;565&quot;:{&quot;slidesPerView&quot;:1}},&quot;pagination&quot;:{&quot;el&quot;:&quot;.swiper-pagination&quot;,&quot;clickable&quot;:true,&quot;dynamicBullets&quot;:true}}">
+      <!-- Additional required wrapper-->
+      <div class="swiper-wrapper pb-5">
+        <!-- Slides-->
+        <div class="swiper-slide h-auto px-2">
+          <!-- place item-->
+          <div class="w-100 h-100 hover-animate" data-marker-id="59c0c8e33b1527bfe2abaf92">
+            <div class="card h-100 border-0 shadow">
+              <div class="card-img-top overflow-hidden gradient-overlay"> <img class="img-fluid"
+                  src="https://d19m59y37dris4.cloudfront.net/directory/1-6-1/img/photo/photo-1484154218962-a197022b5858.jpg"
+                  alt="Modern, Well-Appointed Room" /><a class="tile-link" href="#"></a>
+                <div class="card-img-overlay-bottom z-index-20">
+                  <div class="media text-white text-sm align-items-center"><img class="avatar avatar-border-white mr-2"
+                      src="{% static 'images/profile.jpg' %}" alt="Pamela" />
+                    <div class="media-body">Preetom</div>
+                  </div>
+                </div>
+                <div class="card-img-overlay-top text-right"><a class="card-fav-icon position-relative z-index-40"
+                    href="javascript: void();">
+                    <svg class="svg-icon text-white">
+                      <use xlink:href="#heart-1"> </use>
+                    </svg></a></div>
+              </div>
+              <div class="card-body d-flex align-items-center">
+                <div class="w-100">
+                  <h6 class="card-title"><a class="text-decoration-none text-dark" href="#">Modern,
+                      Well-Appointed Apartment</a></h6>
+                  <div class="d-flex card-subtitle mb-3">
+                    <p class="flex-grow-1 mb-0 text-muted text-sm">1 living room, 4 bedrooms, 3 attached bathrooms, 1
+                      kitchen </p>
+                    <p class="flex-shrink-1 mb-0 card-stars text-xs text-right"><i
+                        class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i
+                        class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i
+                        class="fa fa-star text-warning"></i>
+                    </p>
+                  </div>
+                  <p class="card-text text-muted"><span class="h4 text-primary">৳25,000</span> per month</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide h-auto px-2">
+          <!-- place item-->
+          <div class="w-100 h-100 hover-animate" data-marker-id="59c0c8e322f3375db4d89128">
+            <div class="card h-100 border-0 shadow">
+              <div class="card-img-top overflow-hidden gradient-overlay"> <img class="img-fluid"
+                  src="https://d19m59y37dris4.cloudfront.net/directory/1-6-1/img/photo/photo-1426122402199-be02db90eb90.jpg"
+                  alt="Cute Quirky Garden apt, NYC adjacent" /><a class="tile-link" href="detail-rooms.html"></a>
+                <div class="card-img-overlay-bottom z-index-20">
+                  <div class="media text-white text-sm align-items-center"><img class="avatar avatar-border-white mr-2"
+                      src="https://d19m59y37dris4.cloudfront.net/directory/1-6-1/img/avatar/avatar-7.jpg" alt="John" />
+                    <div class="media-body">John</div>
+                  </div>
+                </div>
+                <div class="card-img-overlay-top text-right"><a class="card-fav-icon position-relative z-index-40"
+                    href="javascript: void();">
+                    <svg class="svg-icon text-white">
+                      <use xlink:href="#heart-1"> </use>
+                    </svg></a></div>
+              </div>
+              <div class="card-body d-flex align-items-center">
+                <div class="w-100">
+                  <h6 class="card-title"><a class="text-decoration-none text-dark" href="detail-rooms.html">Cute
+                      Quirky Garden apt, NYC adjacent</a></h6>
+                  <div class="d-flex card-subtitle mb-3">
+                    <p class="flex-grow-1 mb-0 text-muted text-sm">Entire apartment</p>
+                    <p class="flex-shrink-1 mb-0 card-stars text-xs text-right"><i
+                        class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i
+                        class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i
+                        class="fa fa-star text-gray-300"> </i>
+                    </p>
+                  </div>
+                  <p class="card-text text-muted"><span class="h4 text-primary">$121</span> per night</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide h-auto px-2">
+          <!-- place item-->
+          <div class="w-100 h-100 hover-animate" data-marker-id="59c0c8e3a31e62979bf147c9">
+            <div class="card h-100 border-0 shadow">
+              <div class="card-img-top overflow-hidden gradient-overlay"> <img class="img-fluid"
+                  src="https://d19m59y37dris4.cloudfront.net/directory/1-6-1/img/photo/photo-1512917774080-9991f1c4c750.jpg"
+                  alt="Modern Apt - Vibrant Neighborhood!" /><a class="tile-link" href="detail-rooms.html"></a>
+                <div class="card-img-overlay-bottom z-index-20">
+                  <div class="media text-white text-sm align-items-center"><img class="avatar avatar-border-white mr-2"
+                      src="https://d19m59y37dris4.cloudfront.net/directory/1-6-1/img/avatar/avatar-8.jpg" alt="Julie" />
+                    <div class="media-body">Julie</div>
+                  </div>
+                </div>
+                <div class="card-img-overlay-top text-right"><a class="card-fav-icon position-relative z-index-40"
+                    href="javascript: void();">
+                    <svg class="svg-icon text-white">
+                      <use xlink:href="#heart-1"> </use>
+                    </svg></a></div>
+              </div>
+              <div class="card-body d-flex align-items-center">
+                <div class="w-100">
+                  <h6 class="card-title"><a class="text-decoration-none text-dark" href="detail-rooms.html">Modern Apt
+                      - Vibrant Neighborhood!</a></h6>
+                  <div class="d-flex card-subtitle mb-3">
+                    <p class="flex-grow-1 mb-0 text-muted text-sm">Entire apartment</p>
+                    <p class="flex-shrink-1 mb-0 card-stars text-xs text-right"><i
+                        class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i
+                        class="fa fa-star text-warning"></i><i class="fa fa-star text-gray-300"> </i><i
+                        class="fa fa-star text-gray-300"> </i>
+                    </p>
+                  </div>
+                  <p class="card-text text-muted"><span class="h4 text-primary">$75</span> per night</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide h-auto px-2">
+          <!-- place item-->
+          <div class="w-100 h-100 hover-animate" data-marker-id="59c0c8e3503eb77d487e8082">
+            <div class="card h-100 border-0 shadow">
+              <div class="card-img-top overflow-hidden gradient-overlay"> <img class="img-fluid"
+                  src="https://d19m59y37dris4.cloudfront.net/directory/1-6-1/img/photo/photo-1494526585095-c41746248156.jpg"
+                  alt="Sunny Private Studio-Apartment" /><a class="tile-link" href="detail-rooms.html"></a>
+                <div class="card-img-overlay-bottom z-index-20">
+                  <div class="media text-white text-sm align-items-center"><img class="avatar avatar-border-white mr-2"
+                      src="https://d19m59y37dris4.cloudfront.net/directory/1-6-1/img/avatar/avatar-9.jpg"
+                      alt="Barbora" />
+                    <div class="media-body">Barbora</div>
+                  </div>
+                </div>
+                <div class="card-img-overlay-top text-right"><a class="card-fav-icon position-relative z-index-40"
+                    href="javascript: void();">
+                    <svg class="svg-icon text-white">
+                      <use xlink:href="#heart-1"> </use>
+                    </svg></a></div>
+              </div>
+              <div class="card-body d-flex align-items-center">
+                <div class="w-100">
+                  <h6 class="card-title"><a class="text-decoration-none text-dark" href="detail-rooms.html">Sunny
+                      Private Studio-Apartment</a></h6>
+                  <div class="d-flex card-subtitle mb-3">
+                    <p class="flex-grow-1 mb-0 text-muted text-sm">Shared room</p>
+                    <p class="flex-shrink-1 mb-0 card-stars text-xs text-right"><i
+                        class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i
+                        class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i
+                        class="fa fa-star text-gray-300"> </i>
+                    </p>
+                  </div>
+                  <p class="card-text text-muted"><span class="h4 text-primary">$93</span> per night</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide h-auto px-2">
+          <!-- place item-->
+          <div class="w-100 h-100 hover-animate" data-marker-id="59c0c8e39aa2eed0626e485d">
+            <div class="card h-100 border-0 shadow">
+              <div class="card-img-top overflow-hidden gradient-overlay"> <img class="img-fluid"
+                  src="https://d19m59y37dris4.cloudfront.net/directory/1-6-1/img/photo/photo-1522771739844-6a9f6d5f14af.jpg"
+                  alt="Mid-Century Modern Garden Paradise" /><a class="tile-link" href="detail-rooms.html"></a>
+                <div class="card-img-overlay-bottom z-index-20">
+                  <div class="media text-white text-sm align-items-center"><img class="avatar avatar-border-white mr-2"
+                      src="https://d19m59y37dris4.cloudfront.net/directory/1-6-1/img/avatar/avatar-10.jpg" alt="Jack" />
+                    <div class="media-body">Jack</div>
+                  </div>
+                </div>
+                <div class="card-img-overlay-top text-right"><a class="card-fav-icon position-relative z-index-40"
+                    href="javascript: void();">
+                    <svg class="svg-icon text-white">
+                      <use xlink:href="#heart-1"> </use>
+                    </svg></a></div>
+              </div>
+              <div class="card-body d-flex align-items-center">
+                <div class="w-100">
+                  <h6 class="card-title"><a class="text-decoration-none text-dark" href="detail-rooms.html">Mid-Century
+                      Modern Garden Paradise</a></h6>
+                  <div class="d-flex card-subtitle mb-3">
+                    <p class="flex-grow-1 mb-0 text-muted text-sm">Entire house</p>
+                    <p class="flex-shrink-1 mb-0 card-stars text-xs text-right"><i
+                        class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i
+                        class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i
+                        class="fa fa-star text-warning"></i>
+                    </p>
+                  </div>
+                  <p class="card-text text-muted"><span class="h4 text-primary">$115</span> per night</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide h-auto px-2">
+          <!-- place item-->
+          <div class="w-100 h-100 hover-animate" data-marker-id="59c0c8e39aa2edasd626e485d">
+            <div class="card h-100 border-0 shadow">
+              <div class="card-img-top overflow-hidden gradient-overlay"> <img class="img-fluid"
+                  src="https://d19m59y37dris4.cloudfront.net/directory/1-6-1/img/photo/photo-1488805990569-3c9e1d76d51c.jpg"
+                  alt="Brooklyn Life, Easy to Manhattan" /><a class="tile-link" href="detail-rooms.html"></a>
+                <div class="card-img-overlay-bottom z-index-20">
+                  <div class="media text-white text-sm align-items-center"><img class="avatar avatar-border-white mr-2"
+                      src="https://d19m59y37dris4.cloudfront.net/directory/1-6-1/img/avatar/avatar-11.jpg"
+                      alt="Stuart" />
+                    <div class="media-body">Stuart</div>
+                  </div>
+                </div>
+                <div class="card-img-overlay-top text-right"><a class="card-fav-icon position-relative z-index-40"
+                    href="javascript: void();">
+                    <svg class="svg-icon text-white">
+                      <use xlink:href="#heart-1"> </use>
+                    </svg></a></div>
+              </div>
+              <div class="card-body d-flex align-items-center">
+                <div class="w-100">
+                  <h6 class="card-title"><a class="text-decoration-none text-dark" href="detail-rooms.html">Brooklyn
+                      Life, Easy to Manhattan</a></h6>
+                  <div class="d-flex card-subtitle mb-3">
+                    <p class="flex-grow-1 mb-0 text-muted text-sm">Apartment</p>
+                    <p class="flex-shrink-1 mb-0 card-stars text-xs text-right"><i
+                        class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i
+                        class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i
+                        class="fa fa-star text-gray-300"> </i>
+                    </p>
+                  </div>
+                  <p class="card-text text-muted"><span class="h4 text-primary">৳45,000</span> per month</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- If we need pagination-->
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+</section>
+<!-- Divider Section-->
+<section class="py-7 position-relative dark-overlay"><img class="bg-image"
+    src="https://d19m59y37dris4.cloudfront.net/directory/1-6-1/img/photo/photo-1497436072909-60f360e1d4b1.jpg" alt="">
+  <div class="container">
+    <div class="overlay-content text-white py-lg-5">
+      <h3 class="display-3 font-weight-bold text-serif text-shadow mb-5">Ready to find your perfect home?</h3><a
+        class="btn btn-light" href="/signup">Get started</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="py-6 bg-gray-200 text-muted">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-5 mb-lg-0">
+          <div class="font-weight-bold text-uppercase text-dark mb-3">Directory</div>
+
+          <ul class="list-inline">
+            <li class="list-inline-item"><a class="text-muted text-hover-primary" href="#" target="_blank"
+                title="twitter"><i class="fab fa-twitter"></i></a></li>
+            <li class="list-inline-item"><a class="text-muted text-hover-primary" href="#" target="_blank"
+                title="facebook"><i class="fab fa-facebook"></i></a></li>
+            <li class="list-inline-item"><a class="text-muted text-hover-primary" href="#" target="_blank"
+                title="instagram"><i class="fab fa-instagram"></i></a></li>
+            <li class="list-inline-item"><a class="text-muted text-hover-primary" href="#" target="_blank"
+                title="pinterest"><i class="fab fa-pinterest"></i></a></li>
+            <li class="list-inline-item"><a class="text-muted text-hover-primary" href="#" target="_blank"
+                title="vimeo"><i class="fab fa-vimeo"></i></a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
+          <h6 class="text-uppercase text-dark mb-3">Rentals</h6>
+          <ul class="list-unstyled">
+            <li><a class="text-muted" href="index.html">Rooms </a></li>
+            <li><a class="text-muted" href="category-rooms.html">Map on top </a></li>
+            <li><a class="text-muted" href="category-2-rooms.html">Side map </a></li>
+            <li><a class="text-muted" href="category-3-rooms.html">No map </a></li>
+            <li><a class="text-muted" href="detail-rooms.html">Room detail </a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
+          <h6 class="text-uppercase text-dark mb-3">Pages</h6>
+          <ul class="list-unstyled">
+            <li><a class="text-muted" href="compare.html">Comparison </a></li>
+            <li><a class="text-muted" href="team.html">Team </a></li>
+            <li><a class="text-muted" href="contact.html">Contact </a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h6 class="text-uppercase text-dark mb-3">Daily Offers & Discounts</h6>
+
+          <form action="#" id="newsletter-form">
+            <div class="input-group mb-3">
+              <input class="form-control bg-transparent border-dark border-right-0" type="email"
+                placeholder="Your Email Address" aria-label="Your Email Address">
+              <div class="input-group-append">
+                <button class="btn btn-outline-dark border-left-0" type="submit"> <i
+                    class="fa fa-paper-plane text-lg"></i></button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Copyright section of the footer-->
+  <div class="py-4 font-weight-light bg-gray-800 text-gray-300">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-left">
+          <p class="text-sm mb-md-0">&copy; 2021, Home Rent. All rights reserved.</p>
+        </div>
+        <div class="col-md-6">
+          <ul class="list-inline mb-0 mt-2 mt-md-0 text-center text-md-right">
+            <li class="list-inline-item"><img class="w-2rem"
+                src="https://d19m59y37dris4.cloudfront.net/directory/1-6-1/img/visa.svg" alt="..."></li>
+            <li class="list-inline-item"><img class="w-2rem"
+                src="https://d19m59y37dris4.cloudfront.net/directory/1-6-1/img/mastercard.svg" alt="..."></li>
+            <li class="list-inline-item"><img class="w-2rem"
+                src="https://d19m59y37dris4.cloudfront.net/directory/1-6-1/img/paypal.svg" alt="..."></li>
+            <li class="list-inline-item"><img class="w-2rem"
+                src="https://d19m59y37dris4.cloudfront.net/directory/1-6-1/img/western-union.svg" alt="..."></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- JavaScript files-->
+<script>
+  // ------------------------------------------------------- //
+  //   Inject SVG Sprite - 
+  //   see more here 
+  //   https://css-tricks.com/ajaxing-svg-sprite/
+  // ------------------------------------------------------ //
+  function injectSvgSprite(path) {
+
+    var ajax = new XMLHttpRequest();
+    ajax.open("GET", path, true);
+    ajax.send();
+    ajax.onload = function (e) {
+      var div = document.createElement("div");
+      div.className = 'd-none';
+      div.innerHTML = ajax.responseText;
+      document.body.insertBefore(div, document.body.childNodes[0]);
+    }
+  }
+  // to avoid CORS issues when viewing using file:// protocol, using the demo URL for the SVG sprite
+  // use your own URL in production, please :)
+  // https://demo.bootstrapious.com/directory/1-0/icons/orion-svg-sprite.svg
+  //- injectSvgSprite('${path}icons/orion-svg-sprite.69651a96.svg'); 
+  injectSvgSprite('https://demo.bootstrapious.com/directory/1-4/icons/orion-svg-sprite.svg');
+
+  /*function clearFilter(e) {
+    e.preventDefault();
+
+    removeOptions(document.getElementById('id_division'));
+    removeOptions(document.getElementById('id_city'));
+    removeOptions(document.getElementById('id_locality'));
+  }*/
+
+  function removeOptions(selectElement) {
+    var i, L = selectElement.options.length - 1;
+    for (i = L; i >= 0; i--) {
+      selectElement.remove(i);
+    }
+  }
+</script>
+<!-- jQuery-->
+<script src="https://d19m59y37dris4.cloudfront.net/directory/1-6-1/vendor/jquery/jquery.min.js"></script>
+<!-- Bootstrap JS bundle - Bootstrap + PopperJS-->
+<script
+  src="https://d19m59y37dris4.cloudfront.net/directory/1-6-1/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Magnific Popup - Lightbox for the gallery-->
+<script
+  src="https://d19m59y37dris4.cloudfront.net/directory/1-6-1/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<!-- Smooth scroll-->
+<script
+  src="https://d19m59y37dris4.cloudfront.net/directory/1-6-1/vendor/smooth-scroll/smooth-scroll.polyfills.min.js"></script>
+<!-- Bootstrap Select-->
+<script
+  src="https://d19m59y37dris4.cloudfront.net/directory/1-6-1/vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
+<!-- Object Fit Images - Fallback for browsers that don't support object-fit-->
+<script src="https://d19m59y37dris4.cloudfront.net/directory/1-6-1/vendor/object-fit-images/ofi.min.js"></script>
+<!-- Swiper Carousel                       -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/js/swiper.min.js"></script>
+<script src="https://d19m59y37dris4.cloudfront.net/directory/1-6-1/vendor/jquery.cookie/jquery.cookie.js"> </script>
+<script src="js/demo.36f8799a.js"></script>
+<script>var basePath = ''</script>
+<!-- Main Theme JS file    -->
+<script src="js/theme.55f8348b.js"></script>
+
+{% endblock %}

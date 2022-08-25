@@ -1,0 +1,203 @@
+<!-- {% extends "baseN.html" %} -->
+{% load static %}
+
+{% block content %}
+
+<section class="py-3">
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="navbar">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link">
+                                <h4>Sign Up</h4>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <div class="jumbotron">
+                    <form action="/signup" method="POST" name="registrationForm" enctype="multipart/form-data"
+                        id="registrationForm">
+                        {% csrf_token %}
+
+                        <!-- {% if messages.length %}
+                        {% for message in messages %}
+                        {% if message.tags %}
+                        {{ message }}
+                        {% endif %}
+                        {% endfor %}
+
+                        {% endif %} -->
+
+                        {% if msg != '' %}
+                        <span class="text-danger">{{ msg }}</span>
+                        {% endif %}
+
+                        <!--plugin image upload -->
+                        <!-- <div class="form-group">
+                            <div class="col-sm-6 pull-right text-right user-photo">
+                                <div class="ajaxDisplay">
+                                    <img class="ajax_preview image-wrapper" src=""
+                                        style="margin: auto;display: none;" />
+                                    <div id="progress" style="margin: auto;display:none;">
+                                        <div class="bar" style="width: 0%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 pull-right text-right ajaxButton">
+                                <div class="uploadfileBtn fileUpload btn btn-default">
+                                    <label>User Photo <input type="file" name="file" id="userImg" class="upload">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="user_image_name" name="user_image_name" value=""> -->
+
+
+                        <p>
+                            <label class="control-label" for="name">Full Name</label>
+                            <input name="fullName" required="required" id="fullName" maxlength="100"
+                                class="form-intial form-control" placeholder="Full Name" type="text" value="">
+                            <label class="error" for="fullName"></label>
+                        </p>
+                        <p>
+                            <label class="control-label" for="email">Email</label>
+                            <input type="email" name="email" required="required" id="email" maxlength="50"
+                                class="form-control" placeholder="Email" value="">
+                        </p>
+                        <p>
+                            <label class="control-label" for="pwd">Password</label>
+                            <input type="password" name="password" required="required" id="password" maxlength="20"
+                                class="form-control"
+                                placeholder="Password: must above six Character & contains numeric numbers,small & capital letters"
+                                value="">
+                        </p>
+                        <p>
+                            <label class="control-label" for="conPassword">Confirm Password</label>
+                            <input type="password" name="conPassword" required="required" id="conPassword"
+                                maxlength="20" class="form-control" placeholder="Confirm Password" value="">
+                        </p>
+                        <p>
+                            <label class="control-label" for="contactNum">Mobile number</label>
+                            <input name="contactNum" required="required" id="contactNum" class="form-control"
+                                placeholder="+88 XXXXXXXXXXX" maxlength="30" type="text" value="">
+                        </p>
+                        <p>
+                            <label class="control-label" for="district">City</label>
+                            <select name="district" required="required" id="districts" class="form-control">
+                                <option value="">Select your city</option>
+
+                                {% for entry in city_data %}
+                                <option value="{{ entry.city }}">{{ entry.city }}</option>
+                                {% endfor %}
+                            </select>
+                            <label class="error" for="districts"></label>
+                        </p>
+                        <p>
+                            <label class="control-label" for="area">Area</label>
+                            <select name="area" required="required" id="area" class="form-control">
+                                <option value="">Select your area</option>
+
+                                {% for entry in locality_data %}
+                                <option value="{{ entry.locality }}">{{ entry.locality }}</option>
+                                {% endfor %}
+                            </select>
+                            <label class="error" for="area"></label>
+                        </p>
+                        <p>
+                            <label class="control-label" for="address">Contact Address</label>
+                            <input name="address" required="required" id="address" class="form-control" maxlength="255"
+                                placeholder="Contact Address" type="text" value="">
+                        </p>
+
+                        <!-- <div class="form-group">
+                            <div class="col-sm-2 text-right">
+                                <label class="control-label" for="name">Name</label>
+                                <label class="control-label lblReq">*</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <div class="input-group form-control">
+                                    <select name="namePrefix" required="required" id="namePrefix"
+                                        class="change label-intial form-control">
+                                        <option value="1">Mr</option>
+                                        <option value="2">Mrs</option>
+                                        <option value="3">Ms</option>
+                                        <option value="4">Miss</option>
+                                    </select> <input name="fullName" required="required" id="fullName" maxlength="100"
+                                        class="form-intial form-control" placeholder="Name" type="text" value="">
+                                </div>
+                                <label class="error" for="fullName"></label>
+                            </div>
+                        </div> -->
+
+
+                        <div class="form-group">
+                            <div class="check-box">
+
+                                <!-- <div class="form-group">
+                                            <label class="option">
+                                                <input type="hidden" name="newsletterSubscribe" value="0"><input type="checkbox"
+                                                    name="newsletterSubscribe" id="regNewsletterSubscribe" value="1"> <span
+                                                    class="checkbox"></span>
+                                            </label>Weekly Newsletter
+                                        </div> -->
+
+                                <div class="form-group terms-cond">
+                                    <label class="option">
+                                        <input type="hidden" name="termsCond" value="0"><input type="checkbox"
+                                            name="termsCond" required="required" id="termsCond" value="1"> <span
+                                            class="checkbox"></span>
+                                    </label>
+                                    <span class="terms-cond-link">
+                                        I agree to the HomeRent.com <a target="_blank" href="/terms/en/">
+                                            Terms & Conditions </a>
+                                    </span>
+                                    <div>
+                                        <label class="error" for="termsCond"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <ul class="nav nav-pills">
+                                    <li>
+                                        <input type="hidden" name="csrf"
+                                            value="0ed25fb8f1f76002cf817302bd928ece-73d74b540cb09bd318b7d52add212aa4">
+                                        <input type="submit" name="submit" class="btn btn-success" id="regSubmit"
+                                            value="Create Account">
+                                    </li>
+                                </ul>
+                            </div>
+                        </div> -->
+
+                        <p>
+                            <input type="hidden" name="csrf"
+                                value="0ed25fb8f1f76002cf817302bd928ece-73d74b540cb09bd318b7d52add212aa4">
+                            <input type="submit" name="submit" class="btn btn-success" id="regSubmit"
+                                value="Create Account">
+                        </p>
+
+                        <p>
+                            <a href="/signin" class="SignIn">Registered User?</a>
+                        </p>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</section>
+{% endblock %}

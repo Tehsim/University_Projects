@@ -1,0 +1,85 @@
+<!-- {% extends "baseN.html" %} -->
+{% load static %}
+{% block content %}
+
+<style>
+    .form-signin {
+        width: 100%;
+        max-width: 500px;
+        padding: 20px;
+        margin: 0 auto;
+    }
+</style>
+
+<section class="py-3">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 form-signin">
+
+                <div class="card text-center">
+                    <div class="card-header">
+                        <h4 style="color: #4E66F8;">Sign In</h4>
+                        <p class="card-text">Please enter your credentials.</p>
+                    </div>
+                    <div class="card-body p-4">
+
+                        <form action="" method="POST" id="LoginForm">
+                            {% csrf_token %}
+                            <div class="row">
+                                <label class="control-label" for="email"><b>Email :</b></label>
+                                <input type="email" name="email" id="email" class="form-control" maxlength="50"
+                                    required="required" placeholder="Email" value="">
+                            </div>
+
+                            <div class="row">
+                                <label class="control-label" for="pwd"><b>Password :</b></label>
+                                <input type="password" name="password" id="password" class="form-control" maxlength="20"
+                                    required="required" placeholder="Password" value="">
+                            </div>
+
+
+                            <div class="row">
+                                <div class="check-box" style="margin: 15px 0px;">
+                                    <div class="form-check form-check-inline">
+                                        <input type="hidden" name="rememberme" value="0">
+                                        <input type="checkbox" name="rememberme" id="UserRemamber"
+                                            class="form-check-input CheckBox login-remamber" maxlength="20" value="1">
+                                        <label class="form-check-label" for="UserRemamber">Remember me</label>
+                                        <!-- <span class="checkbox"></span> -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <input type="hidden" name="csrf"
+                                    value="4cdd70c5ea85233ee779aa8f62e695a2-c1b2c5ec941056eada632eb0ac0bc655">
+                                <a></a><input name="submit" type="submit" class="btn btn-primary btn-block"
+                                    value="Sign In">
+
+                            </div>
+
+                            {% if msg != '' %}
+                                <div class="row" style="display: block;margin-top: 10px;">
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ msg }}
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                        </form>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <a href="/forgotpass">Forgot your password?</a>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

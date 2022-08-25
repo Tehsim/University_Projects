@@ -1,0 +1,56 @@
+<!-- {% extends 'baseN.html' %} -->
+{% load static %}
+{% block content %}
+
+
+<section class="py-3">
+
+
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="navbar">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link">
+                                <h4>Contact Us</h4>
+                                <h6>Contact us directly if you have any questions</h6>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="jumbotron">
+                    <p>
+
+                        Please write your name, email address and a message below if you have any questions.
+                        One of our staff members will be happy to contact you directly and answer your questions as soon
+                        as
+                        possible.
+
+                    </p>
+                    <form method="post">
+                        {% csrf_token %}
+                        <table>
+                            {{form.as_table}}
+                        </table>
+                        <button class="btn btn-success" type="submit">Submit</button>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <h1><b>Contact</b></h1>
+    <h3><b>Contact us directly if you have any questions</b></h3>
+     -->
+
+
+</section>
+
+{% endblock %}

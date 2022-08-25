@@ -1,0 +1,68 @@
+{% extends 'baseN.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    ul.errorlist {
+        display: none !important;
+    }
+</style>
+
+<section class="py-3">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="navbar">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link">
+                                <h4>Post Advertise</h4>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="/postadverlist" class="btn btn-primary">Advertise List</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="jumbotron">
+                    <!-- {% for message in messages %}
+                    <p>{{message}}</p>
+                {% endfor %}      -->
+
+                    {% if msg != '' %}
+                        <div class="row" style="display: block;margin-top: 10px;">
+                            <div class="alert alert-danger" role="alert">
+                                {{ msg }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                            
+
+                        <table>
+                            {{form.media}}
+                            {{form.as_p}}
+                        </table>
+                        <button class="btn btn-success" type="submit">Submit</button>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+</section>
+
+
+{% endblock %}
