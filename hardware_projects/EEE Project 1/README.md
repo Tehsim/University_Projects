@@ -17,3 +17,4 @@ microcontroller
  Using Arduino Uno to create a simple and smart door
 locking system
 
+# Author: Tehsim Fariha, CSE, IIUC

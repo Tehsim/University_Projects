@@ -9,3 +9,4 @@ This is a product star rating system which is implemented by PHP and Mysql datab
 * PHP7.2
 * MySql
 
+# Author: Tehsim Fariha, CSE, IIUC
