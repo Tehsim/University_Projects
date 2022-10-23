@@ -1,73 +1,53 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+
 package hotel.management.system;
 
-import java.awt.*;
-import javax.swing.*;
+import javax.swing.*;//bg pic use korte
+import java.awt.*;//color r jono
 import java.awt.event.*;
 
-public class HotelManagementSystem extends JFrame implements ActionListener{
-
-        JLabel l1;
-        JButton b1;
+public class HotelManagementSystem extends JFrame implements ActionListener {
+//constractor
+    HotelManagementSystem(){
+        //setSize(1595,800);
+        //setLocation(0,0);
+        setBounds(0,0,1595,800);
+        setLayout(null);
         
-        public HotelManagementSystem() {
-		
-                setSize(1366,430);          // setContentPane(300,300,1366,390);   frame size
-                setLayout(null);
-                setLocation(300,300);
-
-		l1 = new JLabel("");
-                b1 = new JButton("Next");
-                
-                b1.setBackground(Color.WHITE);
-                b1.setForeground(Color.BLACK);
-				
-                
-                
-                ImageIcon i1  = new ImageIcon(ClassLoader.getSystemResource("icons/first.jpg"));
-                Image i3 = i1.getImage().getScaledInstance(1366, 390,Image.SCALE_DEFAULT);
-                ImageIcon i2 = new ImageIcon(i3);
-                l1 = new JLabel(i2);
-                
-                JLabel lid=new JLabel("HOTEL MANAGEMENT SYSTEM");
-                lid.setBounds(30,300,1500,100);
-                lid.setFont(new Font("serif",Font.PLAIN,70));
-                lid.setForeground(Color.red);
-                l1.add(lid);
-                
-                b1.setBounds(1170,325,150,50);
-		l1.setBounds(0, 0, 1366, 390);
-                
-                l1.add(b1);
-		add(l1);
- 
-                b1.addActionListener(this);
-                setVisible(true);
-                
-                while(true){
-                        lid.setVisible(false); // lid =  j label
-                    try{
-                        Thread.sleep(500); //1000 = 1 second
-                    }catch(Exception e){} 
-                        lid.setVisible(true);
-                    try{
-                        Thread.sleep(500);
-                    }catch(Exception e){}
-                }
-	}
+        ImageIcon i1=new ImageIcon(ClassLoader.getSystemResource("icons/e.jpeg"));
+        JLabel image=new JLabel(i1);
+        image.setBounds(0,0,1595,800);
+        add(image);
         
-        public void actionPerformed(ActionEvent ae){
-                new Login().setVisible(true);
-                this.setVisible(false);
-                
-        }
+        JLabel text=new JLabel("PARADISE HOTEL MANAGEMENT SYSTEM");
+        text.setBounds(395, 0, 1000, 90);
+        text.setForeground(Color.BLUE);
+        text.setFont(new Font("serif",Font.ITALIC,50));
+        image.add(text);
         
-        public static void main(String[] args) {
-                HotelManagementSystem window = new HotelManagementSystem();
-                window.setVisible(true);			
-	}
+        JButton next=new JButton("NEXT");
+        next.setBounds(1200,700,150,50);
+        next.setBackground(Color.WHITE);
+        next.addActionListener(this);
+       
+        image.add(next);
+                
+         setVisible(true);
+         
+        
+         
+    }
+    
+    public void actionPerformed(ActionEvent ae){
+        
+        setVisible(false);
+        new Login();
+        
+                
+    }
+    public static void main(String[] args) {
+        // kono cls r obj banaite chaila amr new keyword  hlp niye
+        new  HotelManagementSystem();
+    }
+    
 }
