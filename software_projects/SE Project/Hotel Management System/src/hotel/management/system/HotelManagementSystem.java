@@ -27,7 +27,7 @@ public class HotelManagementSystem extends JFrame implements ActionListener {
         
         JButton next=new JButton("NEXT");
         next.setBounds(1200,700,150,50);
-        next.setBackground(Color.WHITE);
+        next.setBackground(Color.white);
         next.addActionListener(this);
        
         image.add(next);
